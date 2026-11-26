@@ -44,8 +44,10 @@ export default function Register() {
 
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
+      newErrors.password = 'Password must contain at least one uppercase letter, one lowercase letter, and one number';
     }
 
     if (!formData.confirmPassword) {
@@ -153,7 +155,7 @@ export default function Register() {
             type="password"
             required
             autoComplete="new-password"
-            placeholder="At least 6 characters"
+            placeholder="Min 8 chars, upper, lower & number"
             value={formData.password}
             onChange={handleChange}
             error={errors.password}
